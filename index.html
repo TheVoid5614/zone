@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>click on it</title>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 80px;
+      font-family: Arial, sans-serif;
+      padding: 0 20px;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 2px solid #555;
+    }
+    .back-btn {
+      margin-top: 50px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Gender Selection -->
+  <div id="section1" class="section active">
+    <h2>Select your gender:</h2>
+    <button onclick="selectGender('man')">Man</button>
+    <button onclick="selectGender('woman')">Woman</button>
+  </div>
+
+  <!-- Love Question -->
+  <div id="section2" class="section">
+    <h2>Do you like me?</h2>
+    <button onclick="answerLove('yes')">Yes</button>
+    <button onclick="answerLove('no')">No</button>
+    <button class="back-btn" onclick="goBackTo('section1')">⬅️ Back</button>
+  </div>
+
+  <!-- Yes Answer Result -->
+  <div id="section3" class="section">
+    <h2 id="resultText"></h2>
+    <button class="back-btn" onclick="goBackTo('section2')">⬅️ Back</button>
+  </div>
+
+  <!-- No Answer Result -->
+  <div id="section4" class="section">
+    <h2 id="noResultText"></h2>
+    <button class="back-btn" onclick="goBackTo('section2')">⬅️ Back</button>
+  </div>
+
+  <script>
+    let selectedGender = '';
+
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function selectGender(gender) {
+      selectedGender = gender;
+      showSection('section2');
+    }
+
+    function answerLove(answer) {
+      if (answer === 'yes') {
+        const msg = selectedGender === 'man'
+          ? "Don’t worry about what others think of you. There’s no one like you. Live simply, because life is more beautiful than you think."
+          : "Honestly, you're a really good person. Girls like you are rare these days.";
+        document.getElementById('resultText').innerText = msg;
+        showSection('section3');
+      } else {
+        const msg = selectedGender === 'man'
+          ? "You are nothing but trash. Go to the bathroom and drink Harpic. You are like the worst kind of a madarchod."
+          : "You look like a prostitute. Go to the bathroom and drink Harpic.";
+        document.getElementById('noResultText').innerText = msg;
+        showSection('section4');
+      }
+    }
+
+    function goBackTo(sectionId) {
+      showSection(sectionId);
+    }
+  </script>
+
+</body>
+</html>
